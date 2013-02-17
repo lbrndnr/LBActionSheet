@@ -19,13 +19,13 @@
 		2B58424016D13A7F00450EE3 /* actionsheet-cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B58423416D13A7F00450EE3 /* actionsheet-cancel@2x.png */; };
 		2B58424116D13A7F00450EE3 /* actionsheet-separator.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B58423516D13A7F00450EE3 /* actionsheet-separator.png */; };
 		2B58424216D13A7F00450EE3 /* actionsheet-separator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B58423616D13A7F00450EE3 /* actionsheet-separator@2x.png */; };
+		2B58425716D1744400450EE3 /* LBActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B58425616D1744400450EE3 /* LBActionSheet.m */; };
 		2BF5CF2B16CFA439001C26D3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BF5CF2A16CFA439001C26D3 /* UIKit.framework */; };
 		2BF5CF2D16CFA439001C26D3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BF5CF2C16CFA439001C26D3 /* Foundation.framework */; };
 		2BF5CF2F16CFA439001C26D3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BF5CF2E16CFA439001C26D3 /* CoreGraphics.framework */; };
 		2BF5CF3516CFA439001C26D3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BF5CF3316CFA439001C26D3 /* InfoPlist.strings */; };
 		2BF5CF3716CFA439001C26D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF5CF3616CFA439001C26D3 /* main.m */; };
 		2BF5CF3B16CFA439001C26D3 /* LBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF5CF3A16CFA439001C26D3 /* LBAppDelegate.m */; };
-		2BF5CF5D16CFA460001C26D3 /* LBActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF5CF5C16CFA460001C26D3 /* LBActionSheet.m */; };
 		2BF5CF6216CFA4CD001C26D3 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BF5CF6116CFA4CD001C26D3 /* CoreImage.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +42,8 @@
 		2B58423416D13A7F00450EE3 /* actionsheet-cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "actionsheet-cancel@2x.png"; path = "../../../iOS/Dashr/Dashr/actionsheet-cancel@2x.png"; sourceTree = "<group>"; };
 		2B58423516D13A7F00450EE3 /* actionsheet-separator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "actionsheet-separator.png"; path = "../../../iOS/Dashr/Dashr/actionsheet-separator.png"; sourceTree = "<group>"; };
 		2B58423616D13A7F00450EE3 /* actionsheet-separator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "actionsheet-separator@2x.png"; path = "../../../iOS/Dashr/Dashr/actionsheet-separator@2x.png"; sourceTree = "<group>"; };
+		2B58425516D1744400450EE3 /* LBActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBActionSheet.h; sourceTree = SOURCE_ROOT; };
+		2B58425616D1744400450EE3 /* LBActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBActionSheet.m; sourceTree = SOURCE_ROOT; };
 		2BF5CF2716CFA439001C26D3 /* LBActionSheet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LBActionSheet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BF5CF2A16CFA439001C26D3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2BF5CF2C16CFA439001C26D3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -52,8 +54,6 @@
 		2BF5CF3816CFA439001C26D3 /* LBActionSheet-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LBActionSheet-Prefix.pch"; sourceTree = "<group>"; };
 		2BF5CF3916CFA439001C26D3 /* LBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBAppDelegate.h; sourceTree = "<group>"; };
 		2BF5CF3A16CFA439001C26D3 /* LBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBAppDelegate.m; sourceTree = "<group>"; };
-		2BF5CF5B16CFA460001C26D3 /* LBActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBActionSheet.h; sourceTree = "<group>"; };
-		2BF5CF5C16CFA460001C26D3 /* LBActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBActionSheet.m; sourceTree = "<group>"; };
 		2BF5CF6116CFA4CD001C26D3 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		2BF5CF6316CFA4FB001C26D3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -105,6 +105,8 @@
 		2BF5CF3016CFA439001C26D3 /* LBActionSheet */ = {
 			isa = PBXGroup;
 			children = (
+				2B58425516D1744400450EE3 /* LBActionSheet.h */,
+				2B58425616D1744400450EE3 /* LBActionSheet.m */,
 				2B58422B16D13A7E00450EE3 /* actionsheet-background.png */,
 				2B58422C16D13A7E00450EE3 /* actionsheet-background@2x.png */,
 				2B58422D16D13A7E00450EE3 /* actionsheet-button-pressed.png */,
@@ -119,8 +121,6 @@
 				2B58423616D13A7F00450EE3 /* actionsheet-separator@2x.png */,
 				2BF5CF3916CFA439001C26D3 /* LBAppDelegate.h */,
 				2BF5CF3A16CFA439001C26D3 /* LBAppDelegate.m */,
-				2BF5CF5B16CFA460001C26D3 /* LBActionSheet.h */,
-				2BF5CF5C16CFA460001C26D3 /* LBActionSheet.m */,
 				2BF5CF3116CFA439001C26D3 /* Supporting Files */,
 			);
 			path = LBActionSheet;
@@ -214,7 +214,7 @@
 			files = (
 				2BF5CF3716CFA439001C26D3 /* main.m in Sources */,
 				2BF5CF3B16CFA439001C26D3 /* LBAppDelegate.m in Sources */,
-				2BF5CF5D16CFA460001C26D3 /* LBActionSheet.m in Sources */,
+				2B58425716D1744400450EE3 /* LBActionSheet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
