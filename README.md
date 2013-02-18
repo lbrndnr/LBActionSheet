@@ -13,24 +13,23 @@ LBActionSheet's API is almost the same as UIActionSheet's. It might change in th
 ### Example
 
 ```objc
-		LBActionSheet* sheet = [[LBActionSheet alloc] initWithTitle:@"Discard?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Discard" otherButtonTitles:@"Save as draft", nil];
-	[sheet setDefaultButtonBackgroundImage:[[UIImage imageNamed:@"actionsheet-button"] stretchableImageWithLeftCapWidth:7 topCapHeight:0] forState:UIControlStateNormal];
-    [sheet setDefaultButtonBackgroundImage:[[UIImage imageNamed:@"actionsheet-button-pressed"] stretchableImageWithLeftCapWidth:7 topCapHeight:0] forState:UIControlStateHighlighted];
+LBActionSheet* sheet = [[LBActionSheet alloc] initWithTitle:@"Discard?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Discard" otherButtonTitles:@"Save as draft", nil];	[sheet setDefaultButtonBackgroundImage:[[UIImage imageNamed:@"actionsheet-button"] stretchableImageWithLeftCapWidth:7 topCapHeight:0] forState:UIControlStateNormal];
+[sheet setDefaultButtonBackgroundImage:[[UIImage imageNamed:@"actionsheet-button-pressed"] stretchableImageWithLeftCapWidth:7 topCapHeight:0] forState:UIControlStateHighlighted];
     sheet.backgroundImage = [UIImage imageNamed:@"actionsheet-background"];
     
-    NSMutableDictionary* titleAttributes = [NSMutableDictionary new];
-    [titleAttributes setObject:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f] forKey:UITextAttributeFont];
-    [titleAttributes setObject:[UIColor whiteColor] forKey:UITextAttributeTextColor];
-    [titleAttributes setObject:[UIColor colorWithWhite:0.0f alpha:0.5f] forKey:UITextAttributeTextShadowColor];
-    [titleAttributes setObject:[NSValue valueWithCGSize:CGSizeMake(0.0f, 1.0f)] forKey:UITextAttributeTextShadowOffset];
-    [sheet setButtonTitleAttributes:titleAttributes forState:UIControlStateNormal];
-    [sheet setButtonTitleAttributes:titleAttributes forState:UIControlStateHighlighted];
+NSMutableDictionary* titleAttributes = [NSMutableDictionary new];
+[titleAttributes setObject:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f] forKey:UITextAttributeFont];
+[titleAttributes setObject:[UIColor whiteColor] forKey:UITextAttributeTextColor];
+[titleAttributes setObject:[UIColor colorWithWhite:0.0f alpha:0.5f] forKey:UITextAttributeTextShadowColor];
+[titleAttributes setObject:[NSValue valueWithCGSize:CGSizeMake(0.0f, 1.0f)] forKey:UITextAttributeTextShadowOffset];
+[sheet setButtonTitleAttributes:titleAttributes forState:UIControlStateNormal];
+[sheet setButtonTitleAttributes:titleAttributes forState:UIControlStateHighlighted];
     
-    UIImageView* separator = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, CGRectGetWidth([UIScreen mainScreen].applicationFrame), 3.0f)];
-    separator.image = [UIImage imageNamed:@"actionsheet-separator"];
-    [sheet insertControl:separator atIndex:self.cancelButtonIndex];
+UIImageView* separator = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, CGRectGetWidth([UIScreen mainScreen].applicationFrame), 3.0f)];
+separator.image = [UIImage imageNamed:@"actionsheet-separator"];
+[sheet insertControl:separator atIndex:self.cancelButtonIndex];
     
-    [sheet showInView:self.view];
+[sheet showInView:self.view];
 ```
 
 ## Requirements
