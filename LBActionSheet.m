@@ -506,7 +506,7 @@ static UIImageView* blockBackgroundView = nil;
     self.titleLabel.frame = newTitleLabelFrame;
     
     if (CGRectGetHeight(newTitleLabelFrame)>0.0f) {
-        origin.y = CGRectGetMaxY(newTitleLabelFrame)+offsets.bottom;
+        origin.y = CGRectGetMaxY(newTitleLabelFrame)+offsets.top+offsets.bottom;
     }
     
     [self.controls enumerateObjectsUsingBlock:^(UIView* control, NSUInteger idx, BOOL *stop) {
