@@ -187,7 +187,20 @@ static UIImageView* blockBackgroundView = nil;
 }
 
 -(void)setTitle:(NSString *)value {
-    self.titleLabel.text = value;
+    if (value) {
+        UILabel* newTitleLabel = [UILabel new];
+        newTitleLabel.backgroundColor = [UIColor clearColor];
+        newTitleLabel.textAlignment = NSTextAlignmentCenter;
+        newTitleLabel.text = value;
+        self.titleLabel = newTitleLabel;
+        [self addSubview:self.titleLabel];
+    }
+    else {
+        [self.titleLabel removeFromSuperview];
+        self.titleLabel = nil;
+    }
+    
+    [self setNeedsLayout];
 }
 
 -(NSAttributedString*)attributedTitle {
@@ -268,14 +281,6 @@ static UIImageView* blockBackgroundView = nil;
 -(id)initWithTitle:(NSString *)title delegate:(id <LBActionSheetDelegate>)obj cancelButtonTitle:(NSString *)cancelButtonTitle destructiveButtonTitle:(NSString *)destructiveButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ... {
     self = [super init];
     if (self) {
-        if (title) {
-            UILabel* newTitleLabel = [UILabel new];
-            newTitleLabel.backgroundColor = [UIColor clearColor];
-            newTitleLabel.textAlignment = NSTextAlignmentCenter;
-            newTitleLabel.text = title;
-            self.titleLabel = newTitleLabel;
-            [self addSubview:self.titleLabel];
-        }
         if (cancelButtonTitle || destructiveButtonTitle || otherButtonTitles) {
             NSMutableArray* newButtons = [NSMutableArray new];
             if (destructiveButtonTitle) {
@@ -298,6 +303,7 @@ static UIImageView* blockBackgroundView = nil;
             self.controls = newButtons;
         }
         
+        self.title = title;
         self.delegate = obj;
         [self _initialize];
     }
