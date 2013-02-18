@@ -267,7 +267,7 @@ static UIImageView* blockBackgroundView = nil;
     
     UIImageView* imageView = [[UIImageView alloc] initWithFrame:self.blockWindow.bounds];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    imageView.backgroundColor = [UIColor colorWithWhite:0.4f alpha:0.5f];
+    imageView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.35f];
     [self.blockWindow addSubview:imageView];
     [self.blockWindow sendSubviewToBack:imageView];
     
