@@ -269,12 +269,7 @@ static UIImageView* blockBackgroundView = nil;
     
     UIImageView* imageView = [[UIImageView alloc] initWithFrame:self.blockWindow.bounds];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    if (self.dimFilter) {
-        imageView.image = [self _blockWindowBackgroundImageWithFilter:self.dimFilter];
-    }
-    else {
-        imageView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.35f];
-    }
+    imageView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.35f];
     [self.blockWindow addSubview:imageView];
     [self.blockWindow sendSubviewToBack:imageView];
     
@@ -605,6 +600,13 @@ static UIImageView* blockBackgroundView = nil;
 }
 
 -(void)_showInView:(UIView *)view fromTransfrom:(CGAffineTransform)fromTransform {
+    if (self.dimFilter) {
+        self.blockBackgroundView.image = [self _blockWindowBackgroundImageWithFilter:self.dimFilter];
+    }
+    else {
+        self.blockBackgroundView.image = nil;
+    }
+    
     if ([self.delegate respondsToSelector:@selector(willPresentActionSheet:)]) {
         [self.delegate willPresentActionSheet:self];
     }
