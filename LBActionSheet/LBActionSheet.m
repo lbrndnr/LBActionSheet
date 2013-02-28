@@ -127,7 +127,7 @@ static UIImageView* blockBackgroundView = nil;
 }
 
 -(NSUInteger)cancelButtonIndex {
-    __block NSUInteger index = 0;
+    __block NSUInteger index = NSNotFound;
     [self.controls enumerateObjectsUsingBlock:^(UIButton* obj, NSUInteger idx, BOOL *stop) {
         if (obj.tag == LBActionSheetCancelButtonType) {
             index = idx;
@@ -139,7 +139,7 @@ static UIImageView* blockBackgroundView = nil;
 }
 
 -(NSUInteger)destructiveButtonIndex {
-    __block NSUInteger index = 0;
+    __block NSUInteger index = NSNotFound;
     [self.controls enumerateObjectsUsingBlock:^(UIButton* obj, NSUInteger idx, BOOL *stop) {
         if (obj.tag == LBActionSheetDestructiveButtonType) {
             index = idx;
@@ -151,7 +151,7 @@ static UIImageView* blockBackgroundView = nil;
 }
 
 -(NSUInteger)firstOtherButtonIndex {
-    __block NSUInteger index = 0;
+    __block NSUInteger index = NSNotFound;
     [self.controls enumerateObjectsUsingBlock:^(UIButton* obj, NSUInteger idx, BOOL *stop) {
         if (obj.tag == LBActionSheetDefaultButtonType) {
             index = idx;
