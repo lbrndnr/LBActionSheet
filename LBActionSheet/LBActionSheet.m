@@ -332,12 +332,15 @@ static UIImageView* blockBackgroundView = nil;
 -(void)_initialize {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_applicationWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
     
+    [self initializeAppearance];
     self.controlOffsets = UIEdgeInsetsMake(4.0f, 21.0f, 4.0f, 21.0f);
     self.contentInsets = UIEdgeInsetsMake(7.0f, 0.0f, 7.0f, 0.0f);
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
 
     [self sizeToFit];
 }
+
+-(void)initializeAppearance {}
 
 #pragma mark -
 #pragma mark Memory

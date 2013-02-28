@@ -40,6 +40,8 @@
 
 -(id)initWithTitle:(NSString *)title delegate:(id <LBActionSheetDelegate>)delegate cancelButtonTitle:(NSString *)cancelButtonTitle destructiveButtonTitle:(NSString *)destructiveButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION;
 
+-(void)initializeAppearance;
+
 -(NSUInteger)addButtonWithTitle:(NSString *)title;
 -(void)insertControl:(UIView*)control atIndex:(NSUInteger)index;
 -(NSString *)buttonTitleAtIndex:(NSUInteger)buttonIndex;
