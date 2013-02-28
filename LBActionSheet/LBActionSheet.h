@@ -43,6 +43,7 @@
 -(void)initializeAppearance;
 
 -(NSUInteger)addButtonWithTitle:(NSString *)title;
+-(void)insertButtonWithTitle:(NSString*)title atIndex:(NSUInteger)index;
 -(void)insertControl:(UIView*)control atIndex:(NSUInteger)index;
 -(NSString *)buttonTitleAtIndex:(NSUInteger)buttonIndex;
 -(UIButton *)buttonAtIndex:(NSUInteger)buttonIndex;

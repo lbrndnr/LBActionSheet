@@ -372,6 +372,11 @@ static UIImageView* blockBackgroundView = nil;
     return self.controls.count-1;
 }
 
+-(void)insertButtonWithTitle:(NSString *)title atIndex:(NSUInteger)index {
+    UIButton* newButton = [self _buttonWithTitle:title type:LBActionSheetDefaultButtonType];
+    [self insertControlsObject:newButton atIndex:index];
+}
+
 -(void)insertControl:(UIView *)control atIndex:(NSUInteger)index {
     control.tag = LBActionSheetCustomButtonType;
     [self insertControlsObject:control atIndex:index];
