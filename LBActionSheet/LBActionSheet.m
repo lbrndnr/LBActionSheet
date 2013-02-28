@@ -38,6 +38,8 @@ static UIImageView* blockBackgroundView = nil;
 
 -(void)_initialize;
 
+-(UIImage*)_blockWindowBackgroundImageWithFilter:(CIFilter*)filter;
+
 -(void)insertControlsObject:(UIView *)object atIndex:(NSUInteger)index;
 
 -(UIButton *)_buttonWithTitle:(NSString*)title type:(LBActionSheetButtonType)type;
@@ -267,7 +269,12 @@ static UIImageView* blockBackgroundView = nil;
     
     UIImageView* imageView = [[UIImageView alloc] initWithFrame:self.blockWindow.bounds];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    imageView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.35f];
+    if (self.dimFilter) {
+        imageView.image = [self _blockWindowBackgroundImageWithFilter:self.dimFilter];
+    }
+    else {
+        imageView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.35f];
+    }
     [self.blockWindow addSubview:imageView];
     [self.blockWindow sendSubviewToBack:imageView];
     
@@ -351,6 +358,28 @@ static UIImageView* blockBackgroundView = nil;
 
 #pragma mark -
 #pragma mark Appearance
+
+-(UIImage*)_blockWindowBackgroundImageWithFilter:(CIFilter *)filter {
+    UIApplication* application = [UIApplication sharedApplication];
+    NSArray* allWindows = application.windows;
+    CGRect statusBarFrame = application.statusBarFrame;
+    UIWindow* mainWindow = allWindows.count ? allWindows[0] : nil;
+    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(CGRectGetWidth(mainWindow.frame), CGRectGetHeight(mainWindow.frame)-CGRectGetHeight(statusBarFrame)), NO, 0);
+    CGContextRef imageContext = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(imageContext, 0.0f, -CGRectGetHeight(statusBarFrame));
+    [mainWindow.layer renderInContext:imageContext];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    CIImage* inputImage = [CIImage imageWithCGImage:image.CGImage];
+    [filter setValue:inputImage forKey:@"inputImage"];
+    CIImage* outputImage = filter.outputImage;
+    CIContext* context = [CIContext contextWithOptions:nil];
+    CGImageRef backgroundImage = [context createCGImage:outputImage fromRect:outputImage.extent];
+    
+    return [UIImage imageWithCGImage:backgroundImage];
+}
 
 -(UIButton *)_buttonWithTitle:(NSString *)title type:(LBActionSheetButtonType)type {
     UIButton* newButton = [UIButton new];
