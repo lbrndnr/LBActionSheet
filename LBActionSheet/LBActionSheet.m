@@ -17,6 +17,7 @@ typedef enum _LBActionSheetButtonType {
 
 const CGFloat kLBActionSheetAnimationDuration = 0.3f;
 static UIWindow* blockWindow = nil;
+static UIView* blockView = nil;
 
 @interface LBActionSheet () {
     NSArray* controls;
@@ -33,7 +34,7 @@ static UIWindow* blockWindow = nil;
 @property (nonatomic, strong) NSDictionary* buttonTitleAttribtues;
 @property (nonatomic, strong) UIImageView* backgroundView;
 @property (nonatomic, readonly) UIWindow* blockWindow;
-@property (nonatomic, readonly) UIImageView* blockBackgroundView;
+@property (nonatomic, readonly) UIView* blockView;
 
 -(void)_initialize;
 
@@ -247,7 +248,7 @@ static UIWindow* blockWindow = nil;
 }
 
 -(CALayer*)dimLayer {
-    return self.blockWindow.layer;
+    return self.blockView.layer;
 }
 
 -(UIWindow*)blockWindow {
@@ -261,6 +262,20 @@ static UIWindow* blockWindow = nil;
     
     blockWindow = window;
     return window;
+}
+
+-(UIView*)blockView {
+    if (blockView) {
+        return blockView;
+    }
+    
+    UIView* view = [[UIView alloc] initWithFrame:self.blockWindow.bounds];
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    [self.blockWindow addSubview:view];
+    [self.blockWindow sendSubviewToBack:view];
+    
+    blockView = view;
+    return view;
 }
 
 #pragma mark -
@@ -555,11 +570,11 @@ static UIWindow* blockWindow = nil;
 
 -(void)_animateFromTransform:(CGAffineTransform)fromTransform fromAlpha:(CGFloat)fromAlpha toTransform:(CGAffineTransform)toTransform toAlpha:(CGFloat)toAlpha duration:(CGFloat)duration completion:(void (^)(BOOL))completion {
     self.transform = fromTransform;
-    self.blockBackgroundView.alpha = fromAlpha;
+    self.blockView.alpha = fromAlpha;
 
     [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionAllowAnimatedContent|UIViewAnimationOptionBeginFromCurrentState animations:^{
         self.transform = toTransform;
-        self.blockBackgroundView.alpha = toAlpha;
+        self.blockView.alpha = toAlpha;
     } completion:completion];
 }
 
