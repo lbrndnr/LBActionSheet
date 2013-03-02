@@ -7,15 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreImage/CoreImage.h>
 #import <QuartzCore/QuartzCore.h>
 
 @protocol LBActionSheetDelegate;
 
 @interface LBActionSheet : UIView {
     id <LBActionSheetDelegate> __weak delegate;
-    
-    CIFilter* dimFilter;
+
     UIEdgeInsets controlOffsets;
     UIEdgeInsets contentInsets;
     BOOL visible;
@@ -33,7 +31,7 @@
 @property (nonatomic, copy) NSAttributedString* attributedTitle;
 @property (nonatomic, readonly) UILabel* titleLabel;
 
-@property (nonatomic, strong) CIFilter* dimFilter;
+@property (nonatomic, strong) CALayer* dimLayer;
 @property (nonatomic, strong) UIImage* backgroundImage;
 @property (nonatomic) UIEdgeInsets controlOffsets;
 @property (nonatomic) UIEdgeInsets contentInsets;

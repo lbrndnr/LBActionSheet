@@ -17,7 +17,6 @@ typedef enum _LBActionSheetButtonType {
 
 const CGFloat kLBActionSheetAnimationDuration = 0.3f;
 static UIWindow* blockWindow = nil;
-static UIImageView* blockBackgroundView = nil;
 
 @interface LBActionSheet () {
     NSArray* controls;
@@ -37,8 +36,6 @@ static UIImageView* blockBackgroundView = nil;
 @property (nonatomic, readonly) UIImageView* blockBackgroundView;
 
 -(void)_initialize;
-
--(UIImage*)_blockWindowBackgroundImageWithFilter:(CIFilter*)filter;
 
 -(void)insertControlsObject:(UIView *)object atIndex:(NSUInteger)index;
 
@@ -61,7 +58,7 @@ static UIImageView* blockBackgroundView = nil;
 @end
 @implementation LBActionSheet
 
-@synthesize delegate, titleLabel, visible, dimFilter, controls, buttonBackgroundImages, backgroundView, controlOffsets, contentInsets;
+@synthesize delegate, titleLabel, visible, controls, buttonBackgroundImages, backgroundView, controlOffsets, contentInsets;
 
 #pragma mark Accessors
 
@@ -249,6 +246,10 @@ static UIImageView* blockBackgroundView = nil;
     }
 }
 
+-(CALayer*)dimLayer {
+    return self.blockWindow.layer;
+}
+
 -(UIWindow*)blockWindow {
     if (blockWindow) {
         return blockWindow;
@@ -260,21 +261,6 @@ static UIImageView* blockBackgroundView = nil;
     
     blockWindow = window;
     return window;
-}
-
--(UIImageView*)blockBackgroundView {
-    if (blockBackgroundView) {
-        return blockBackgroundView;
-    }
-    
-    UIImageView* imageView = [[UIImageView alloc] initWithFrame:self.blockWindow.bounds];
-    imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    imageView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.35f];
-    [self.blockWindow addSubview:imageView];
-    [self.blockWindow sendSubviewToBack:imageView];
-    
-    blockBackgroundView = imageView;
-    return imageView;
 }
 
 #pragma mark -
@@ -353,28 +339,6 @@ static UIImageView* blockBackgroundView = nil;
 
 #pragma mark -
 #pragma mark Appearance
-
--(UIImage*)_blockWindowBackgroundImageWithFilter:(CIFilter *)filter {
-    UIApplication* application = [UIApplication sharedApplication];
-    NSArray* allWindows = application.windows;
-    CGRect statusBarFrame = application.statusBarFrame;
-    UIWindow* mainWindow = allWindows.count ? allWindows[0] : nil;
-    
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(CGRectGetWidth(mainWindow.frame), CGRectGetHeight(mainWindow.frame)-CGRectGetHeight(statusBarFrame)), NO, 0);
-    CGContextRef imageContext = UIGraphicsGetCurrentContext();
-    CGContextTranslateCTM(imageContext, 0.0f, -CGRectGetHeight(statusBarFrame));
-    [mainWindow.layer renderInContext:imageContext];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    CIImage* inputImage = [CIImage imageWithCGImage:image.CGImage];
-    [filter setValue:inputImage forKey:@"inputImage"];
-    CIImage* outputImage = filter.outputImage;
-    CIContext* context = [CIContext contextWithOptions:nil];
-    CGImageRef backgroundImage = [context createCGImage:outputImage fromRect:outputImage.extent];
-    
-    return [UIImage imageWithCGImage:backgroundImage];
-}
 
 -(UIButton *)_buttonWithTitle:(NSString *)title type:(LBActionSheetButtonType)type {
     UIButton* newButton = [UIButton new];
@@ -600,13 +564,6 @@ static UIImageView* blockBackgroundView = nil;
 }
 
 -(void)_showInView:(UIView *)view fromTransfrom:(CGAffineTransform)fromTransform {
-    if (self.dimFilter) {
-        self.blockBackgroundView.image = [self _blockWindowBackgroundImageWithFilter:self.dimFilter];
-    }
-    else {
-        self.blockBackgroundView.image = nil;
-    }
-    
     if ([self.delegate respondsToSelector:@selector(willPresentActionSheet:)]) {
         [self.delegate willPresentActionSheet:self];
     }
