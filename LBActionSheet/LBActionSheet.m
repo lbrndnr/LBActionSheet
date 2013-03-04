@@ -34,7 +34,7 @@ static UIImageView* blockView = nil;
 @property (nonatomic, strong) NSDictionary* buttonTitleAttribtues;
 @property (nonatomic, strong) UIImageView* backgroundView;
 @property (nonatomic, readonly) UIWindow* blockWindow;
-@property (nonatomic, readonly) UIView* blockView;
+@property (nonatomic, readonly) UIImageView* blockView;
 
 -(void)_initialize;
 
