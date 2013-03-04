@@ -17,7 +17,7 @@ typedef enum _LBActionSheetButtonType {
 
 const CGFloat kLBActionSheetAnimationDuration = 0.3f;
 static UIWindow* blockWindow = nil;
-static UIView* blockView = nil;
+static UIImageView* blockView = nil;
 
 @interface LBActionSheet () {
     NSArray* controls;
@@ -247,8 +247,8 @@ static UIView* blockView = nil;
     }
 }
 
--(CALayer*)dimLayer {
-    return self.blockView.layer;
+-(UIImageView*)dimView {
+    return self.blockView;
 }
 
 -(UIWindow*)blockWindow {
@@ -264,12 +264,12 @@ static UIView* blockView = nil;
     return window;
 }
 
--(UIView*)blockView {
+-(UIImageView*)blockView {
     if (blockView) {
         return blockView;
     }
     
-    UIView* view = [[UIView alloc] initWithFrame:self.blockWindow.bounds];
+    UIImageView* view = [[UIImageView alloc] initWithFrame:self.blockWindow.bounds];
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     [self.blockWindow addSubview:view];
     [self.blockWindow sendSubviewToBack:view];

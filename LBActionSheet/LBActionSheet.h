@@ -31,7 +31,7 @@
 @property (nonatomic, copy) NSAttributedString* attributedTitle;
 @property (nonatomic, readonly) UILabel* titleLabel;
 
-@property (nonatomic, strong) CALayer* dimLayer;
+@property (nonatomic, strong) UIImageView* dimView;
 @property (nonatomic, strong) UIImage* backgroundImage;
 @property (nonatomic) UIEdgeInsets controlOffsets;
 @property (nonatomic) UIEdgeInsets contentInsets;
