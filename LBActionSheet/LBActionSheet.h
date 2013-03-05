@@ -17,6 +17,7 @@
     UIEdgeInsets controlOffsets;
     UIEdgeInsets contentInsets;
     BOOL visible;
+    BOOL dismissOnOtherButtonClicked;
 }
 
 @property (nonatomic, weak) id <LBActionSheetDelegate> delegate;
@@ -26,6 +27,7 @@
 @property (nonatomic) NSUInteger destructiveButtonIndex;
 @property (nonatomic, readonly) NSUInteger firstOtherButtonIndex;
 @property (nonatomic, readonly, getter=isVisible) BOOL visible;
+@property (nonatomic) BOOL dismissOnOtherButtonClicked;
 
 @property (nonatomic, copy) NSString* title;
 @property (nonatomic, copy) NSAttributedString* attributedTitle;

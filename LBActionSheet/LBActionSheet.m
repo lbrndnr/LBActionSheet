@@ -59,7 +59,7 @@ static UIImageView* blockView = nil;
 @end
 @implementation LBActionSheet
 
-@synthesize delegate, titleLabel, visible, controls, buttonBackgroundImages, backgroundView, controlOffsets, contentInsets;
+@synthesize delegate, titleLabel, visible, dismissOnOtherButtonClicked, controls, buttonBackgroundImages, backgroundView, controlOffsets, contentInsets;
 
 #pragma mark Accessors
 
@@ -336,6 +336,7 @@ static UIImageView* blockView = nil;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_applicationWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
     
     [self initializeAppearance];
+    self.dismissOnOtherButtonClicked = YES;
     self.controlOffsets = UIEdgeInsetsMake(4.0f, 21.0f, 4.0f, 21.0f);
     self.contentInsets = UIEdgeInsetsMake(7.0f, 0.0f, 7.0f, 0.0f);
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
@@ -638,7 +639,10 @@ static UIImageView* blockView = nil;
         [self.delegate actionSheet:self clickedButtonAtIndex:index];
     }
     
-    [self dismissWithClickedButtonIndex:index animated:YES];
+    BOOL dismiss = (sender.tag != LBActionSheetDefaultButtonType) ?: self.dismissOnOtherButtonClicked;
+    if (dismiss) {
+        [self dismissWithClickedButtonIndex:index animated:YES];
+    }
 }
 
 -(void)_applicationWillTerminate:(NSNotification *)notification {
