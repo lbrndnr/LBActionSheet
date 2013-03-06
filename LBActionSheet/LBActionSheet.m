@@ -368,8 +368,12 @@ static UIImageView* blockView = nil;
         newButton.adjustsImageWhenHighlighted = NO;
     }
     
-    [newButton setBackgroundImage:[self _buttonBackgroundImageForState:UIControlStateNormal type:type] forState:UIControlStateNormal];
-    [newButton setBackgroundImage:[self _buttonBackgroundImageForState:UIControlStateHighlighted type:type] forState:UIControlStateHighlighted];
+    UIImage* backgroundImage = [self _buttonBackgroundImageForState:UIControlStateNormal type:type];
+    UIImage* highlihgtedBackgroundImage = [self _buttonBackgroundImageForState:UIControlStateHighlighted type:type];
+    [newButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
+    [newButton setBackgroundImage:backgroundImage forState:UIControlStateSelected];
+    [newButton setBackgroundImage:highlihgtedBackgroundImage forState:UIControlStateHighlighted];
+    [newButton setBackgroundImage:highlihgtedBackgroundImage forState:UIControlStateHighlighted|UIControlStateSelected];
     [self _button:newButton setTitleAttributes:[self _buttonTitleAttributesForState:UIControlStateNormal type:type] forState:UIControlStateNormal];
     [self _button:newButton setTitleAttributes:[self _buttonTitleAttributesForState:UIControlStateHighlighted type:type] forState:UIControlStateHighlighted];
     [newButton addTarget:self action:@selector(_buttonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
