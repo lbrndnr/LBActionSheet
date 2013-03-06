@@ -40,7 +40,7 @@ static UIImageView* blockView = nil;
 
 -(void)insertControlsObject:(UIView *)object atIndex:(NSUInteger)index;
 
--(UIButton *)_buttonWithTitle:(NSString*)title type:(LBActionSheetButtonType)type;
+-(UIButton *)_buttonWithTitle:(NSString*)title orImage:(UIImage*)image type:(LBActionSheetButtonType)type;
 
 -(void)_setButtonBackgroundImage:(UIImage*)image forState:(UIControlState)state type:(LBActionSheetButtonType)type;
 -(UIImage *)_buttonBackgroundImageForState:(UIControlState)state type:(LBActionSheetButtonType)type;
@@ -287,18 +287,18 @@ static UIImageView* blockView = nil;
         if (cancelButtonTitle || destructiveButtonTitle || otherButtonTitles) {
             NSMutableArray* newButtons = [NSMutableArray new];
             if (destructiveButtonTitle) {
-                [newButtons addObject:[self _buttonWithTitle:destructiveButtonTitle type:LBActionSheetDestructiveButtonType]];
+                [newButtons addObject:[self _buttonWithTitle:destructiveButtonTitle orImage:nil type:LBActionSheetDestructiveButtonType]];
             }
             if (otherButtonTitles) {
                 va_list otherTitles;
                 va_start(otherTitles, otherButtonTitles);
                 for (NSString* otherTitle = otherButtonTitles; otherTitle; otherTitle = (va_arg(otherTitles, NSString*))) {
-                    [newButtons addObject:[self _buttonWithTitle:otherTitle type:LBActionSheetDefaultButtonType]];
+                    [newButtons addObject:[self _buttonWithTitle:otherTitle orImage:nil type:LBActionSheetDefaultButtonType]];
                 }
                 va_end(otherTitles);
             }
             if (cancelButtonTitle) {
-                [newButtons addObject:[self _buttonWithTitle:cancelButtonTitle type:LBActionSheetCancelButtonType]];
+                [newButtons addObject:[self _buttonWithTitle:cancelButtonTitle orImage:nil type:LBActionSheetCancelButtonType]];
             }
             [newButtons enumerateObjectsUsingBlock:^(UIView* button, NSUInteger idx, BOOL *stop) {
                 [self addSubview:button];
@@ -356,10 +356,18 @@ static UIImageView* blockView = nil;
 #pragma mark -
 #pragma mark Appearance
 
--(UIButton *)_buttonWithTitle:(NSString *)title type:(LBActionSheetButtonType)type {
+-(UIButton *)_buttonWithTitle:(NSString *)title orImage:(UIImage *)image type:(LBActionSheetButtonType)type {
     UIButton* newButton = [UIButton new];
     newButton.tag = type;
-    [newButton setTitle:title forState:UIControlStateNormal];
+    
+    if (title) {
+        [newButton setTitle:title forState:UIControlStateNormal];
+    }
+    else {
+        [newButton setImage:image forState:UIControlStateNormal];
+        newButton.adjustsImageWhenHighlighted = NO;
+    }
+    
     [newButton setBackgroundImage:[self _buttonBackgroundImageForState:UIControlStateNormal type:type] forState:UIControlStateNormal];
     [newButton setBackgroundImage:[self _buttonBackgroundImageForState:UIControlStateHighlighted type:type] forState:UIControlStateHighlighted];
     [self _button:newButton setTitleAttributes:[self _buttonTitleAttributesForState:UIControlStateNormal type:type] forState:UIControlStateNormal];
@@ -370,14 +378,26 @@ static UIImageView* blockView = nil;
 }
 
 -(NSUInteger)addButtonWithTitle:(NSString *)title {
-    UIButton* newButton = [self _buttonWithTitle:title type:LBActionSheetDefaultButtonType];    
+    UIButton* newButton = [self _buttonWithTitle:title orImage:nil type:LBActionSheetDefaultButtonType];
+    [self addControlsObject:newButton];
+    
+    return self.controls.count-1;
+}
+
+-(NSUInteger)addButtonWithImage:(UIImage *)image {
+    UIButton* newButton = [self _buttonWithTitle:nil orImage:image type:LBActionSheetDefaultButtonType];
     [self addControlsObject:newButton];
     
     return self.controls.count-1;
 }
 
 -(void)insertButtonWithTitle:(NSString *)title atIndex:(NSUInteger)index {
-    UIButton* newButton = [self _buttonWithTitle:title type:LBActionSheetDefaultButtonType];
+    UIButton* newButton = [self _buttonWithTitle:title orImage:nil type:LBActionSheetDefaultButtonType];
+    [self insertControlsObject:newButton atIndex:index];
+}
+
+-(void)insertButtonWithImage:(UIImage *)image atIndex:(NSUInteger)index {
+    UIButton* newButton = [self _buttonWithTitle:nil orImage:image type:LBActionSheetDefaultButtonType];
     [self insertControlsObject:newButton atIndex:index];
 }
 
