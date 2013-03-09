@@ -53,7 +53,7 @@ static UIImageView* blockView = nil;
 -(void)_applicationWillTerminate:(NSNotification*)notification;
 
 -(void)_dismiss:(BOOL)animated completion:(void (^)(BOOL finished))completion;
--(void)_showInView:(UIView *)view fromTransfrom:(CGAffineTransform)fromTransform;
+-(void)_showInView:(UIView *)view;
 -(void)_animateFromTransform:(CGAffineTransform)fromTransform fromAlpha:(CGFloat)fromAlpha toTransform:(CGAffineTransform)toTransform toAlpha:(CGFloat)toAlpha duration:(CGFloat)duration completion:(void (^)(BOOL finished))completion;
 
 @end
@@ -72,7 +72,7 @@ static UIImageView* blockView = nil;
         [self addSubview:view];
     }];
     
-    if (visible) {
+    if (self.visible) {
         [self sizeToFit];
         [self setNeedsLayout];
     }
@@ -85,7 +85,7 @@ static UIImageView* blockView = nil;
     
     [self addSubview:object];
     
-    if (visible) {
+    if (self.visible) {
         [self sizeToFit];
         [self setNeedsLayout];
     }
@@ -98,7 +98,7 @@ static UIImageView* blockView = nil;
     
     [self addSubview:object];
     
-    if (visible) {
+    if (self.visible) {
         [self sizeToFit];
         [self setNeedsLayout];
     }
@@ -113,7 +113,7 @@ static UIImageView* blockView = nil;
         [view removeFromSuperview];
     }];
     
-    if (visible) {
+    if (self.visible) {
         [self sizeToFit];
         [self setNeedsLayout];
     }
@@ -126,7 +126,7 @@ static UIImageView* blockView = nil;
     
     [object removeFromSuperview];
     
-    if (visible) {
+    if (self.visible) {
         [self sizeToFit];
         [self setNeedsLayout];
     }
@@ -213,7 +213,7 @@ static UIImageView* blockView = nil;
         self.titleLabel = nil;
     }
     
-    if (visible) {
+    if (self.visible) {
         [self sizeToFit];
         [self setNeedsLayout];
     }
@@ -612,12 +612,13 @@ static UIImageView* blockView = nil;
     } completion:completion];
 }
 
--(void)_showInView:(UIView *)view fromTransfrom:(CGAffineTransform)fromTransform {
+-(void)_showInView:(UIView *)view {
     if ([self.delegate respondsToSelector:@selector(willPresentActionSheet:)]) {
         [self.delegate willPresentActionSheet:self];
     }
     
     self.visible = YES;
+    CGAffineTransform fromTransform = CGAffineTransformTranslate(CGAffineTransformIdentity, 0.0f, CGRectGetHeight(self.bounds));
     
     [self _animateFromTransform:fromTransform fromAlpha:0.0f toTransform:CGAffineTransformIdentity toAlpha:1.0f duration:kLBActionSheetAnimationDuration completion:^(BOOL finished) {
         if ([self.delegate respondsToSelector:@selector(didPresentActionSheet:)]) {
@@ -627,18 +628,15 @@ static UIImageView* blockView = nil;
 }
 
 -(void)showInView:(UIView *)view {
-    CGAffineTransform fromTransform = CGAffineTransformTranslate(CGAffineTransformIdentity, 0.0f, CGRectGetHeight(self.bounds));
-    [self _showInView:view fromTransfrom:fromTransform];
+    [self _showInView:view];
 }
 
 -(void)showFromTabBar:(UITabBar *)tabBar {
-    CGAffineTransform fromTransform = CGAffineTransformTranslate(CGAffineTransformIdentity, 0.0f, CGRectGetHeight(self.bounds));
-    [self _showInView:tabBar.superview fromTransfrom:fromTransform];
+    [self _showInView:tabBar.superview];
 }
 
 -(void)showFromToolbar:(UIToolbar *)toolbar {
-    CGAffineTransform fromTransform = CGAffineTransformTranslate(CGAffineTransformIdentity, 0.0f, CGRectGetHeight(self.bounds));
-    [self _showInView:toolbar.superview fromTransfrom:fromTransform];
+    [self _showInView:toolbar.superview];
 }
 
 -(void)_dismiss:(BOOL)animated completion:(void (^)(BOOL))completion {
