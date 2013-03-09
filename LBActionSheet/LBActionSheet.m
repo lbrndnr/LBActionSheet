@@ -167,8 +167,8 @@ static UIImageView* blockView = nil;
         visible = value;
         if (value) {
             CGRect newFrame = self.frame;
-            newFrame.origin.y = CGRectGetHeight(self.blockWindow.frame)-CGRectGetHeight(self.bounds);
-            newFrame.size.width = CGRectGetWidth(self.blockWindow.frame);
+            newFrame.size = [self sizeThatFits:CGSizeMake(CGRectGetWidth(self.blockWindow.frame), 0.0f)];
+            newFrame.origin.y = CGRectGetHeight(self.blockWindow.frame)-CGRectGetHeight(newFrame);
             self.frame = newFrame;
             
             [self.blockWindow makeKeyAndVisible];
@@ -192,6 +192,7 @@ static UIImageView* blockView = nil;
         newTitleLabel.backgroundColor = [UIColor clearColor];
         newTitleLabel.textAlignment = NSTextAlignmentCenter;
         newTitleLabel.text = value;
+        newTitleLabel.numberOfLines = 0;
         self.titleLabel = newTitleLabel;
         [self addSubview:self.titleLabel];
     }
@@ -537,7 +538,7 @@ static UIImageView* blockView = nil;
     __block CGPoint origin = CGPointMake(offsets.left+insets.left, offsets.top+insets.top);
     
     self.backgroundView.frame = self.bounds;
-    CGSize neededTitleSize = [self.titleLabel sizeThatFits:self.titleLabel.frame.size];
+    CGSize neededTitleSize = [self.title sizeWithFont:self.titleLabel.font constrainedToSize:CGSizeMake(maxWidth, 100.0f) lineBreakMode:self.titleLabel.lineBreakMode];
     CGRect newTitleLabelFrame = (CGRect){origin, {maxWidth, neededTitleSize.height}};
     self.titleLabel.frame = newTitleLabelFrame;
     
@@ -564,13 +565,8 @@ static UIImageView* blockView = nil;
 -(CGSize)sizeThatFits:(CGSize)size {
     UIEdgeInsets insets = self.contentInsets;
     UIEdgeInsets offsets = self.controlOffsets;
-    CGSize neededTitleSize;
-    if (self.titleLabel.attributedText) {
-        neededTitleSize = [self.titleLabel.attributedText size];
-    }
-    else {
-        neededTitleSize = [self.titleLabel.text sizeWithFont:self.titleLabel.font forWidth:CGRectGetWidth(self.bounds)-offsets.left-offsets.right-insets.left-insets.right lineBreakMode:self.titleLabel.lineBreakMode];
-    }
+    CGFloat maxWidth = size.width-offsets.left-offsets.right-insets.left-insets.right;
+    CGSize neededTitleSize = [self.title sizeWithFont:self.titleLabel.font constrainedToSize:CGSizeMake(maxWidth, 100.0f) lineBreakMode:self.titleLabel.lineBreakMode];
     __block CGFloat neededHeight = CGSizeEqualToSize(neededTitleSize, CGSizeZero) ? 0.0f : neededTitleSize.height+offsets.top+offsets.bottom;
     
     [self.controls enumerateObjectsUsingBlock:^(UIView* control, NSUInteger idx, BOOL *stop) {
