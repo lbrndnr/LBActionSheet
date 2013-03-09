@@ -72,8 +72,10 @@ static UIImageView* blockView = nil;
         [self addSubview:view];
     }];
     
-    [self sizeToFit];
-    [self setNeedsLayout];
+    if (visible) {
+        [self sizeToFit];
+        [self setNeedsLayout];
+    }
 }
 
 -(void)addControlsObject:(UIView *)object {
@@ -83,8 +85,10 @@ static UIImageView* blockView = nil;
     
     [self addSubview:object];
     
-    [self sizeToFit];
-    [self setNeedsLayout];
+    if (visible) {
+        [self sizeToFit];
+        [self setNeedsLayout];
+    }
 }
 
 -(void)insertControlsObject:(UIView *)object atIndex:(NSUInteger)index {
@@ -94,8 +98,10 @@ static UIImageView* blockView = nil;
     
     [self addSubview:object];
     
-    [self sizeToFit];
-    [self setNeedsLayout];
+    if (visible) {
+        [self sizeToFit];
+        [self setNeedsLayout];
+    }
 }
 
 -(void)removeControls:(NSSet *)objects {
@@ -107,8 +113,10 @@ static UIImageView* blockView = nil;
         [view removeFromSuperview];
     }];
     
-    [self sizeToFit];
-    [self setNeedsLayout];
+    if (visible) {
+        [self sizeToFit];
+        [self setNeedsLayout];
+    }
 }
 
 -(void)removeControlsObject:(UIButton *)object {
@@ -118,8 +126,10 @@ static UIImageView* blockView = nil;
     
     [object removeFromSuperview];
     
-    [self sizeToFit];
-    [self setNeedsLayout];
+    if (visible) {
+        [self sizeToFit];
+        [self setNeedsLayout];
+    }
 }
 
 -(NSUInteger)numberOfButtons {
@@ -171,6 +181,8 @@ static UIImageView* blockView = nil;
             newFrame.origin.y = CGRectGetHeight(self.blockWindow.frame)-CGRectGetHeight(newFrame);
             self.frame = newFrame;
             
+            [self setNeedsLayout];
+            
             [self.blockWindow makeKeyAndVisible];
             [self.blockWindow addSubview:self];
             [self.blockWindow bringSubviewToFront:self];
@@ -201,7 +213,10 @@ static UIImageView* blockView = nil;
         self.titleLabel = nil;
     }
     
-    [self setNeedsLayout];
+    if (visible) {
+        [self sizeToFit];
+        [self setNeedsLayout];
+    }
 }
 
 -(NSAttributedString*)attributedTitle {
@@ -341,8 +356,6 @@ static UIImageView* blockView = nil;
     self.controlOffsets = UIEdgeInsetsMake(4.0f, 21.0f, 4.0f, 21.0f);
     self.contentInsets = UIEdgeInsetsMake(7.0f, 0.0f, 7.0f, 0.0f);
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
-
-    [self sizeToFit];
 }
 
 -(void)initializeAppearance {}
