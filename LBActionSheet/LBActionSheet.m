@@ -148,6 +148,23 @@ static UIImageView* blockView = nil;
     return index;
 }
 
+/**
+ This is suboptimal, because the cancelbutton index must be set after all buttons
+ have been added, but before the button backgrounds etc. are set.
+ 
+ It would be bettter if this happened in _showInView or so, but that would require
+ that all button properties are initialized then, as well.
+ */
+- (void)setCancelButtonIndex:(NSUInteger)cancelButtonIndex
+{
+  [self.controls enumerateObjectsUsingBlock:^(UIButton* obj, NSUInteger idx, BOOL *stop) {
+    if (idx == cancelButtonIndex)
+    {
+      obj.tag = LBActionSheetCancelButtonType;
+    }
+  }];
+}
+
 -(NSUInteger)destructiveButtonIndex {
     __block NSUInteger index = NSNotFound;
     [self.controls enumerateObjectsUsingBlock:^(UIButton* obj, NSUInteger idx, BOOL *stop) {
