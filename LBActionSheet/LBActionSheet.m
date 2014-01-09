@@ -457,8 +457,18 @@ static UIImageView* blockView = nil;
 }
 
 -(void)_button:(UIButton *)button setTitleAttributes:(NSDictionary *)attributes forState:(UIControlState)state {
-    button.titleLabel.font = attributes[UITextAttributeFont];
-    [button setTitleColor:attributes[UITextAttributeTextColor] forState:state];
+    if (!attributes) {
+        return;
+    }
+    if (attributes[NSFontAttributeName]) {
+        button.titleLabel.font = attributes[NSFontAttributeName];
+
+    }
+    if (attributes[NSForegroundColorAttributeName]) {
+        [button setTitleColor:attributes[NSForegroundColorAttributeName] forState:state];
+
+    }
+    
     [button setTitleShadowColor:attributes[UITextAttributeTextShadowColor] forState:state];
     button.titleLabel.shadowOffset = [(NSValue*)attributes[UITextAttributeTextShadowOffset] CGSizeValue];
 }
@@ -569,6 +579,9 @@ static UIImageView* blockView = nil;
         }
         else {
             CGSize neededSize = [control sizeThatFits:control.frame.size];
+            if (self.buttonsHeight) {
+                neededSize.height = self.buttonsHeight.floatValue;
+            }
             control.frame = (CGRect){origin, {maxWidth, neededSize.height}};
         }
         origin.y += CGRectGetHeight(control.frame)+offsets.top+offsets.bottom;
@@ -576,10 +589,17 @@ static UIImageView* blockView = nil;
 }
 
 -(CGSize)sizeThatFits:(CGSize)size {
+
     UIEdgeInsets insets = self.contentInsets;
     UIEdgeInsets offsets = self.controlOffsets;
+    
     CGFloat maxWidth = size.width-offsets.left-offsets.right-insets.left-insets.right;
     CGSize neededTitleSize = [self.titleLabel sizeThatFits:CGSizeMake(maxWidth, 100.0f)];
+    
+    if (self.buttonsHeight) {
+        return CGSizeMake(size.width, neededTitleSize.height+[self numberOfButtons]*self.buttonsHeight.floatValue +insets.top+insets.bottom);
+    }
+    
     __block CGFloat neededHeight = CGSizeEqualToSize(neededTitleSize, CGSizeZero) ? 0.0f : neededTitleSize.height+offsets.top+offsets.bottom;
     
     [self.controls enumerateObjectsUsingBlock:^(UIView* control, NSUInteger idx, BOOL *stop) {

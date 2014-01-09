@@ -38,6 +38,8 @@
 @property (nonatomic) UIEdgeInsets controlOffsets;
 @property (nonatomic) UIEdgeInsets contentInsets;
 
+@property (nonatomic) NSNumber *buttonsHeight;
+
 -(id)initWithTitle:(NSString *)title delegate:(id <LBActionSheetDelegate>)delegate cancelButtonTitle:(NSString *)cancelButtonTitle destructiveButtonTitle:(NSString *)destructiveButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION;
 
 -(void)initializeAppearance;
